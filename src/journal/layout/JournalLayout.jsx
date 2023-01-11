@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Toolbar } from '@mui/material'
 import React from 'react'
 import { Navbar } from '../components/Navbar';
 import { SideBar } from '../components';
@@ -13,8 +13,9 @@ export const JournalLayout = ({ children }) => {
             <SideBar drawerWidth={drawerWidth} />
             <Box
                 component='main'
-                sx={{ flexGrow: 1, p: 3 }}
+                sx={{ flexGrow: 1, p: 4 }}
             >
+                <Toolbar />
                 { children }
             </Box>
 
