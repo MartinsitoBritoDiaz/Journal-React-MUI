@@ -1,10 +1,14 @@
 import { Link as RouterLink } from 'react-router-dom' 
 import { AppRegistration, Google, Login } from '@mui/icons-material'
-import { Button, Grid, TextField, Typography, Link } from '@mui/material'
+import { Button, Grid, TextField, Typography, Link, Alert } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from '../../hooks'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { startRegisteringUserWithEmailPassword } from '../../store/auth/thunks'
 
 const formData = {
   displayName: '',
@@ -19,22 +23,34 @@ const formValidations = {
 }
 
 export const RegisterPage = () => {
-  const { status } = useSelector( state => state.auth );
   const dispatch = useDispatch();
+  const { status, errorMessage } = useSelector( state => state.auth );
+  const { isCheckingAuthentication } = useMemo( () => status === 'checking', [ status ]);
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const { displayName, displayNameValid, email, emailValid, password, passwordValid, onInputChange, formState, isFormValid } = useForm( formData, formValidations );
   
+  
+
   const onSubmit = ( event ) => {
     event.preventDefault();
     setFormSubmitted(true);
-    console.log( formState );
+    
+    if( !isFormValid ) {
+      toast.error("User was not created!");
+      
+      return;
+    };
+    
+    toast.info("User was created!");
+
+    dispatch( startRegisteringUserWithEmailPassword( formState ) );
   }
 
   return (
     <AuthLayout 
       title='Register'
     >
-      <h1>FormValid { isFormValid ? 'Valid' : 'Invalid'} </h1>
       <form onSubmit={ onSubmit }>
           <Grid container >
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -79,8 +95,21 @@ export const RegisterPage = () => {
               />
             </Grid>
             
+            <Grid 
+              item 
+              xs={ 12 } 
+              sx={{ mt: 2 }}
+              display={ !!errorMessage ? '' : 'none' }
+            >
+              <Alert 
+                severity='error'
+              >{ errorMessage }</Alert>
+
+            </Grid>
+
             <Grid item xs={ 12 } sx={{ mt: 2 }}>
               <Button 
+                disabled={ isCheckingAuthentication }
                 type='submit'
                 variant='contained' 
                 fullWidth
@@ -98,6 +127,18 @@ export const RegisterPage = () => {
             </Grid>
           </Grid>
         </form>
+        <ToastContainer 
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover={false}
+          theme="dark"
+        />
     </AuthLayout>
   )
 }

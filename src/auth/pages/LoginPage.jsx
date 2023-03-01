@@ -1,35 +1,47 @@
 import { Link as RouterLink } from 'react-router-dom' 
 import { Google } from '@mui/icons-material'
-import { Button, Grid, TextField, Typography, Link } from '@mui/material'
+import { Button, Grid, TextField, Typography, Link, Alert, Box } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth/thunks'
+import { startGoogleSignIn, startLogInUserWithEmailPassword } from '../../store/auth/thunks'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMemo } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
 
+const formValidations = {
+  email: [ (value) => value.length >= 1, 'Email could not be empty'],
+  password: [ (value) => value.length >= 1, 'Password could not be empty'],
+}
 
 export const LoginPage = () => {
-  const { status } = useSelector( state => state.auth );
+  const { status, errorMessage } = useSelector( state => state.auth );
   const dispatch = useDispatch();
 
   const formData = {
-    email: 'journalApp@gmail.com',
-    password: '1234567'
+    email: '',
+    password: ''
   }
-  const { email, password, onInputChange } = useForm( formData );
+  const { email, password, onInputChange, formState, isFormValid } = useForm( formData, formValidations );
 
   const isAuthenticating = useMemo( () => status === 'checking', [ status ]);
 
   const onSubmit = ( event ) => {
     event.preventDefault();
-    dispatch( checkingAuthentication() );
-    console.log( { email, password } );
+    
+    if( !isFormValid ) {
+      toast.error("You must fill out all fields!");
+      
+      return;
+    };
+    
+    dispatch( startLogInUserWithEmailPassword( formState ) );
   }
 
   const onGoogleSignIn = () => {
     dispatch( startGoogleSignIn() );
     console.log('OnGoogleSignIn');
   }
+  const imgPath = '/src/assets/login.svg';
 
 
 
@@ -37,6 +49,15 @@ export const LoginPage = () => {
     <AuthLayout 
       title='Login'
     >
+      
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <img
+          src={imgPath}
+          width={"256"}
+          height={"256"}
+          loading="lazy"
+        />
+      </div>
       <form onSubmit={ onSubmit }>
           <Grid container >
             <Grid item xs={ 12 } sx={{ mt: 2}}>
@@ -63,11 +84,23 @@ export const LoginPage = () => {
               />
             </Grid>
 
+            <Grid 
+              item 
+              xs={ 12 } 
+              sx={{ mt: 1, mb: 1 }}
+              display={ !!errorMessage ? '' : 'none' }
+            >
+              <Alert 
+                severity='error'
+              >{ errorMessage }</Alert>
+
+            </Grid>
+
             <Grid container spacing={2} sx={{mb: 2, mt: 1}}>
               <Grid item xs={ 12 } sm={ 6 }>
                 <Button 
                   disabled={ isAuthenticating }
-                  variant='outlined' 
+                  variant='contained' 
                   fullWidth 
                   type='submit'>
                   Login
@@ -77,7 +110,7 @@ export const LoginPage = () => {
               <Grid item xs={ 12 } sm={ 6 }>
                 <Button 
                   disabled={ isAuthenticating }
-                  variant='outlined' 
+                  variant='contained' 
                   fullWidth 
                   onClick={ onGoogleSignIn }>
                   <Google />
@@ -93,6 +126,19 @@ export const LoginPage = () => {
             </Grid>
           </Grid>
         </form>
+        
+        <ToastContainer 
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover={false}
+          theme="colored"
+        />
     </AuthLayout>
   )
 }
