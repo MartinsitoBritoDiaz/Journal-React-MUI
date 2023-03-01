@@ -11,7 +11,7 @@ export const greenTheme = createTheme({
       main: "#324a59",
     },
     error: {
-      main: "#d9d9d9",
+      main: "#bb4553",
     },
   },
 });
