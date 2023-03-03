@@ -57,19 +57,22 @@ export const LoginPage = () => {
   const imgPath = "/src/assets/login.svg";
 
   return (
-    <AuthLayout title="Login">
+    <AuthLayout title="Login" >
       <Grid
         container 
         spacing={2}
       >
-        <Grid item justifyContent="center" alignItems="center" xs={12} sm={12} md={6}>
+        <Grid item justifyContent="center" alignItems="center" xs={12} sm={12} md={6} 
+          className="animate__animated animate__fadeIn animate__faster">
           <img src={imgPath} width={"256"} height={"256"} loading="lazy" />
         </Grid>
         <Grid
           item
           xs={12} sm={12} md={6}
         >
-          <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit} 
+            className="animate__animated animate__fadeIn animate__faster"
+        >
             <Grid item xs={12} sx={{ mt: 2 }}>
               <TextField
                 label="Email"

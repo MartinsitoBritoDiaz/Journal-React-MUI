@@ -1,24 +1,23 @@
-import { Box, Toolbar } from '@mui/material'
-import React from 'react'
-import { Navbar } from '../components/Navbar';
-import { SideBar } from '../components';
+import { Box, Toolbar } from "@mui/material";
+import React from "react";
+import { Navbar } from "../components/Navbar";
+import { SideBar } from "../components";
 
 const drawerWidth = 280;
 
 export const JournalLayout = ({ children }) => {
-    return (
-        <Box sx={{ display: 'flex' }}>
-            <Navbar drawerWidth={drawerWidth}/>
-            
-            <SideBar drawerWidth={drawerWidth} />
-            <Box
-                component='main'
-                sx={{ flexGrow: 1, p: 4 }}
-            >
-                <Toolbar />
-                { children }
-            </Box>
+  return (
+    <Box
+      sx={{ display: "flex" }}
+      className="animate__animated animate__fadeIn animate__faster"
+    >
+      <Navbar drawerWidth={drawerWidth} />
 
-        </Box>
-    )
-}
+      <SideBar drawerWidth={drawerWidth} />
+      <Box component="main" sx={{ flexGrow: 1, p: 4 }}>
+        <Toolbar />
+        {children}
+      </Box>
+    </Box>
+  );
+};
