@@ -53,7 +53,6 @@ export const LoginPage = () => {
 
   const onGoogleSignIn = () => {
     dispatch(startGoogleSignIn());
-    console.log("OnGoogleSignIn");
   };
   const imgPath = "/src/assets/login.svg";
 
