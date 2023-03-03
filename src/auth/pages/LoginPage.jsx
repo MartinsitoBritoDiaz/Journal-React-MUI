@@ -54,7 +54,7 @@ export const LoginPage = () => {
   const onGoogleSignIn = () => {
     dispatch(startGoogleSignIn());
   };
-  const imgPath = "/src/assets/login.svg";
+  const imgPath = "/assets/login.svg";
 
   return (
     <AuthLayout title="Login" >
