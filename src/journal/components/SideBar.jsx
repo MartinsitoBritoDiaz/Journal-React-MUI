@@ -19,7 +19,6 @@ export const SideBar = ({ drawerWidth = 240 }) => {
   const month = ["January", "February", "March", "April"];
 
   const { displayName } = useSelector((state) => state.auth);
-  console.log(displayName);
 
   return (
     <Box
