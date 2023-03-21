@@ -42,4 +42,4 @@ export const FirebaseApp = initializeApp(firebaseConfig);
 
 const analytics = getAnalytics(FirebaseApp);
 export const FirebaseAuth = getAuth( FirebaseApp );
-export const FurebaseDB = getFirestore( FirebaseApp );
+export const FirebaseDB = getFirestore( FirebaseApp );
