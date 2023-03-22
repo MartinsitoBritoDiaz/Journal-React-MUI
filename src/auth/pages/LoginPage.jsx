@@ -24,14 +24,16 @@ const formValidations = {
   password: [(value) => value.length >= 1, "Password could not be empty"],
 };
 
+
+const formData = {
+  email: "",
+  password: "",
+};
+
 export const LoginPage = () => {
   const { status, errorMessage } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const formData = {
-    email: "",
-    password: "",
-  };
   const { email, password, onInputChange, formState, isFormValid } = useForm(
     formData,
     formValidations

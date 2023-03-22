@@ -14,6 +14,10 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
 
     const onResetForm = () => setFormState( initialForm );
 
+    useEffect(() => {
+        setFormState(initialForm);
+    }, [initialForm]);
+
     //Version 1
     // const formValidation = useMemo(() => {
     //     const formCheckedValues = {};

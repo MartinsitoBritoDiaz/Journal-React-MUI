@@ -10,7 +10,7 @@ export const startNewNote = () => {
         dispatch( savingNewNote() );
 
         const newNote = {
-            title: '',
+            title: 'Note 3',
             body: '',
             date: new Date().getTime(),
         }
@@ -32,7 +32,6 @@ export const getNotes = () => {
         if( !uid ) throw new Error("The UID of the user does not exist");
 
         const notes = await loadNotes(uid);
-
         dispatch( setNotes(notes) );
     }
 }
