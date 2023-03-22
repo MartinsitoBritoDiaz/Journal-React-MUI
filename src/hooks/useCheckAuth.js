@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FirebaseAuth } from "../firebase/config";
 import { logIn, logOut } from "../store/auth/authSlice";
+import { getNotes } from "../store/journal/thunks";
 
 export const useCheckAuth = () => {
   const { status } = useSelector((state) => state.auth);
@@ -17,6 +18,7 @@ export const useCheckAuth = () => {
         const { uid, email, displayName, photoURL } = user;
 
         dispatch(logIn({ uid, email, displayName, photoURL }));
+        dispatch( getNotes() );
       },
       []
     );

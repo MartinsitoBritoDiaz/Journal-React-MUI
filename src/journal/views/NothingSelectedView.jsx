@@ -14,11 +14,11 @@ export const NothingSelectedView = () => {
       justifyContent="center"
       sx={{minHeight: 'calc(100vh - 110px)', backgroundColor: 'primary.main', borderRadius: 5}}
     >
-        <Grid item sx={12}>
+        <Grid item>
             <StarOutline sx={{ fontSize: 100, color: 'white' }} />
         </Grid>
 
-        <Grid item sx={12}>
+        <Grid item >
             <Typography color='white' variant='h5'>Select or create a new entry </Typography>
         </Grid>
     </Grid>
