@@ -1,20 +1,32 @@
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material";
-import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
+import {
+  AppBar,
+  Box,
+  Grid,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogOut } from "../../store/auth/thunks";
 
 export const Navbar = ({ drawerWidth = 240 }) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const { displayName } = useSelector((state) => state.auth);
 
-    const handleLogOut = () => {
-        dispatch( startLogOut() );
-    }
+  const handleLogOut = () => {
+    dispatch(startLogOut());
+  };
   return (
     <AppBar
-      position="fixed"
       sx={{
         width: { sm: `calc(100% - ${drawerWidth}px)` },
         ml: { sm: `${drawerWidth}px` },
+        backgroundColor: "#fff",
+        border: "none",
+        // boxShadow: "none",
+        display: "block",
+        position: "sticky",
       }}
     >
       <Toolbar>
@@ -32,20 +44,23 @@ export const Navbar = ({ drawerWidth = 240 }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h6" noWrap component="div">
-            JournalApp
+          {/* <Box component="div" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}> */}
+          <Typography variant="h6" noWrap component="div" color={"#000"}>
+            {displayName}
           </Typography>
 
-          <IconButton color="error"
-            onClick={handleLogOut}
-          >
-            <LogoutOutlined />
+          <IconButton color="error" onClick={handleLogOut}>
+            {/* <LogoutOutlined /> */}
+            <img
+              src={"./assets/logOut.png"}
+              width={30}
+              alt={"note icon"}
+              loading="lazy"
+            />
           </IconButton>
+          {/* </Box> */}
         </Grid>
       </Toolbar>
-      <div className={``}>
-
-      </div>
     </AppBar>
   );
 };

@@ -60,10 +60,18 @@ export const NoteView = () => {
           disabled={isSaving}
           onClick={onSaveNote}
           color="primary"
-          sx={{ padding: 2 }}
+          sx={{ p: 1, px: 1.5, display: 'flex', columnGap: '10px', backgroundColor: 'primary.main', borderRadius: '1.2rem', color: '#fff', '&:hover': {
+            backgroundColor: 'secondary.main', // set your hover color here
+          }  }}
         >
-          <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
-          Save
+          <img
+              src={"./assets/save.png"}
+              width={30}
+              alt={"note icon"}
+              loading="lazy"
+            />
+          {/* <SaveOutlined sx={{ fontSize: 30, mr: 1 }} /> */}
+          <span sx={{ }}>Save</span>
         </Button>
       </Grid>
 

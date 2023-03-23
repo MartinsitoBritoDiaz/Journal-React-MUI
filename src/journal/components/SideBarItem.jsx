@@ -18,14 +18,21 @@ export const SideBarItem = ({ title = "", body, id, date, imageUrls = [] }) => {
   }, [title]);
 
   const handleActiveNote = () => {
-    dispatch( setActiveNote({id, title, body, date, imageUrls}) )
+    dispatch(setActiveNote({ id, title, body, date, imageUrls }));
   };
 
   return (
     <ListItem disablePadding>
-      <ListItemButton onClick={handleActiveNote}>
+      <ListItemButton sx={{ '&:hover': {
+          backgroundColor: 'secondary.main', // set your hover color here
+        } }} onClick={handleActiveNote}>
         <ListItemIcon>
-          <TurnedInNot />
+          <img
+            src={'./assets/note-icon.png'}
+            width={30}
+            alt={'note icon'}
+            loading="lazy"
+          />
         </ListItemIcon>
         <Grid container>
           <ListItemText primary={newTitle} />

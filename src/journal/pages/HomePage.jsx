@@ -30,15 +30,20 @@ export const HomePage = () => {
         size='large'
         sx={{
           color: 'white',
-          backgroundColor: 'error.main',
-          ':hover': { backgroundColor: 'error.main', opacity: 0.8 },
+          ':hover': { opacity: 0.8 },
           position: 'fixed',
-          right: 50,
+          right: 25,
           bottom: 50
         }}
         onClick={onCreateNewNote}
         >
-          <AddOutlined sx={{ fontSize: 30}}/>
+          <img
+              src={"./assets/addNote.png"}
+              width={50}
+              alt={"note icon"}
+              loading="lazy"
+            />
+          {/* <AddOutlined sx={{ fontSize: 30}}/> */}
       </IconButton>
     </JournalLayout>
   )

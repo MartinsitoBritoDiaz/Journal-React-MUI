@@ -8,15 +8,18 @@ const drawerWidth = 280;
 export const JournalLayout = ({ children }) => {
   return (
     <Box
-      sx={{ display: "flex" }}
+      // sx={{ display: "flex" }}
       className="animate__animated animate__fadeIn animate__faster"
     >
       <Navbar drawerWidth={drawerWidth} />
-
       <SideBar drawerWidth={drawerWidth} />
-      <Box component="main" sx={{ flexGrow: 1, p: 4 }}>
-        <Toolbar />
-        {children}
+
+      <Box component="main" sx={{ flexGrow: 1, pr: 4, display: "flex" }}>
+        {/* <Toolbar /> */}
+        <Box component="main" sx={{ flexGrow: 1, p: 4, pb: 0, ml: { sm: `${drawerWidth}px` }, }}>
+          {children}
+
+        </Box>
       </Box>
     </Box>
   );
