@@ -1,6 +1,9 @@
 import { createTheme } from "@mui/material";
 
 export const greenTheme = createTheme({
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+  },
   palette: {
     primary: {
       light: "",
@@ -8,7 +11,7 @@ export const greenTheme = createTheme({
       main: "#233540",
     },
     secondary: {
-      main: "#324a59",
+      main: "#517389",
     },
     error: {
       main: "#bb4553",

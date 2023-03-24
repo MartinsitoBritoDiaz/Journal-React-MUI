@@ -47,7 +47,7 @@ export const NoteView = () => {
       direction="row"
       justifyContent="space-between"
       alignItems="center"
-      sx={{ mb: 1 }}
+      sx={{ mb: 1, rowGap: '2rem' }}
       className="animate__animated animate__fadeIn animate__faster"
     >
       <Grid item>
@@ -60,25 +60,28 @@ export const NoteView = () => {
           disabled={isSaving}
           onClick={onSaveNote}
           color="primary"
-          sx={{ p: 1, px: 1.5, display: 'flex', columnGap: '10px', backgroundColor: 'primary.main', borderRadius: '1.2rem', color: '#fff', '&:hover': {
-            backgroundColor: 'secondary.main', // set your hover color here
-          }  }}
+          sx={{
+            p: 1,
+            px: 3,
+            display: "flex",
+            columnGap: "10px",
+            backgroundColor: "primary.main",
+            borderRadius: "1rem",
+            color: "#fff",
+            "&:hover": {
+              backgroundColor: "secondary.main", // set your hover color here
+            },
+          }}
         >
-          <img
-              src={"./assets/save.png"}
-              width={30}
-              alt={"note icon"}
-              loading="lazy"
-            />
           {/* <SaveOutlined sx={{ fontSize: 30, mr: 1 }} /> */}
-          <span sx={{ }}>Save</span>
+          <span sx={{  }}>Save</span>
         </Button>
       </Grid>
 
-      <Grid container>
+      <Grid container sx={{ rowGap: '2rem'}} >
         <TextField
           type="text"
-          variant="filled"
+          variant="outlined"
           fullWidth
           placeholder="Insert a title"
           label="Title"
@@ -90,7 +93,7 @@ export const NoteView = () => {
 
         <TextField
           type="text"
-          variant="filled"
+          variant="outlined"
           fullWidth
           multiline
           label="What happened today?"

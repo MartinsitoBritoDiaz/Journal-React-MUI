@@ -1,6 +1,7 @@
 import { TurnedInNot } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Divider,
   Drawer,
   Grid,
@@ -12,13 +13,27 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { SideBarItem } from "./";
 
 export const SideBar = ({ drawerWidth = 240 }) => {
   const { notes } = useSelector((state) => state.journal);
+  const [closeMenu, setCloseMenu] = useState(true);
 
+  useEffect(() => {
+    if(!closeMenu){
+      drawerWidth = 40;
+    }else{
+      drawerWidth = 240;
+    }
+  
+  }, [closeMenu])
+
+  const onChangeMenu = () => {
+    setCloseMenu(false);
+  }
+  
   return (
     <Box
       component="nav"
@@ -39,10 +54,32 @@ export const SideBar = ({ drawerWidth = 240 }) => {
           },
         }}
       >
-        <Toolbar sx={{ backgroundColor: "primary.main", color: "white" }}>
+        <Toolbar
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <Typography variant="h6" noWrap component="div">
             JournalApp
           </Typography>
+
+          <Box
+            sx={{
+              p: 0,
+              m: 0,
+            }}
+            onClick={onChangeMenu}
+          >
+            <img
+              src={"./assets/menu.png"}
+              width={30}
+              alt={"note icon"}
+              loading="lazy"
+            />
+          </Box>
         </Toolbar>
         <List
           sx={{
