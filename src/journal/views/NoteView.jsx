@@ -1,16 +1,22 @@
-import { SaveOutlined } from "@mui/icons-material";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  DeleteOutline,
+  SaveOutlined,
+  UploadFileOutlined,
+  UploadOutlined,
+} from "@mui/icons-material";
+import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 import { ImageGallery } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { setActiveNote } from "../../store/journal/journalSlice";
-import { startSaveNote } from "../../store/journal/thunks";
+import { startDeletingNote, startSaveNote, startUploadingFiles } from "../../store/journal/thunks";
 
 export const NoteView = () => {
   const dispatch = useDispatch();
+  const fileUploadRef = useRef();
 
   const {
     active: note,
@@ -27,19 +33,28 @@ export const NoteView = () => {
     );
   }, [date]);
 
-  useEffect(() => {
-    dispatch(setActiveNote(formState));
-  }, [formState]);
-
   const onSaveNote = () => {
     dispatch(startSaveNote());
   };
 
+  const onFileInputChange = ({ target }) => {
+    if (target.files.length === 0) return;
+
+    dispatch(startUploadingFiles(target.files));
+  };
+
+  const onDelete = () => {
+    dispatch( startDeletingNote() );
+  }
   useEffect(() => {
     if (messageSaved.length > 0) {
-      Swal.fire("Note updated", messageSaved, "success");
+      Swal.fire("Note was updated", messageSaved, "success");
     }
   }, [messageSaved]);
+
+  useEffect(() => {
+    dispatch(setActiveNote(formState));
+  }, [formState]);
 
   return (
     <Grid
@@ -47,7 +62,7 @@ export const NoteView = () => {
       direction="row"
       justifyContent="space-between"
       alignItems="center"
-      sx={{ mb: 1, rowGap: '2rem' }}
+      sx={{ mb: 1, rowGap: "2rem" }}
       className="animate__animated animate__fadeIn animate__faster"
     >
       <Grid item>
@@ -55,7 +70,22 @@ export const NoteView = () => {
           {dateString}
         </Typography>
       </Grid>
-      <Grid item>
+      <Grid item sx={{ display: "flex" }}>
+        <input
+        
+          disabled={isSaving}
+          type="file"
+          multiple
+          ref={fileUploadRef}
+          onChange={onFileInputChange}
+          style={{ display: "none" }}
+        />
+        <IconButton
+          disabled={isSaving}
+          onClick={() => fileUploadRef.current.click()}
+        >
+          <UploadOutlined sx={{ color: "primary.main" }} />
+        </IconButton>
         <Button
           disabled={isSaving}
           onClick={onSaveNote}
@@ -74,11 +104,11 @@ export const NoteView = () => {
           }}
         >
           {/* <SaveOutlined sx={{ fontSize: 30, mr: 1 }} /> */}
-          <span sx={{  }}>Save</span>
+          <span sx={{}}>Save</span>
         </Button>
       </Grid>
 
-      <Grid container sx={{ rowGap: '2rem'}} >
+      <Grid container sx={{ rowGap: "2rem" }}>
         <TextField
           type="text"
           variant="outlined"
@@ -104,7 +134,16 @@ export const NoteView = () => {
         />
       </Grid>
 
-      <ImageGallery />
+      <Grid container justifyContent='end'>
+        <Button
+          onClick={onDelete}
+        >
+          <DeleteOutline />
+          Delete
+        </Button>
+      </Grid>
+
+      <ImageGallery images={note.imageUrls} />
     </Grid>
   );
 };

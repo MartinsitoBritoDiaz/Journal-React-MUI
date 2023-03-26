@@ -22,11 +22,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
   const [closeMenu, setCloseMenu] = useState(true);
 
   useEffect(() => {
-    if(!closeMenu){
-      drawerWidth = 40;
-    }else{
-      drawerWidth = 240;
-    }
+    console.log(closeMenu)
   
   }, [closeMenu])
 
@@ -66,7 +62,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
             JournalApp
           </Typography>
 
-          <Box
+          <Button
             sx={{
               p: 0,
               m: 0,
@@ -79,7 +75,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
               alt={"note icon"}
               loading="lazy"
             />
-          </Box>
+          </Button>
         </Toolbar>
         <List
           sx={{
