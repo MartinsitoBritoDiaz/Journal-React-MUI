@@ -1,6 +1,6 @@
 import { Firestore, collection, deleteDoc, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
-import { addNewEmptyNote, deleteNoteById, noteUpdated, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNotes, setSaving } from "./journalSlice";
+import { addNewEmptyNote, changeMenu, deleteNoteById, noteUpdated, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNotes, setSaving } from "./journalSlice";
 import { loadNotes, uploadFiles } from "../../helpers";
 import { Savings } from "@mui/icons-material";
 
@@ -81,5 +81,11 @@ export const startDeletingNote = () => {
         await deleteDoc(docRef);
 
         dispatch( deleteNoteById( note.id ) );
+    }
+}
+
+export const changeSideBarMenu = (size = 240) => {
+    return async (dispatch) => {
+        dispatch( changeMenu(size) );
     }
 }

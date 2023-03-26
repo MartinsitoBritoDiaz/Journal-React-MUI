@@ -10,9 +10,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { startLogOut } from "../../store/auth/thunks";
 
-export const Navbar = ({ drawerWidth = 240 }) => {
+export const Navbar = () => {
   const dispatch = useDispatch();
   const { displayName } = useSelector((state) => state.auth);
+  const { drawerWidth } = useSelector((state) => state.journal);
 
   const handleLogOut = () => {
     dispatch(startLogOut());
@@ -45,7 +46,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
           alignItems="center"
         >
           {/* <Box component="div" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}> */}
-          <Typography variant="h6" noWrap component="div" color={"#000"}>
+          <Typography variant="h6" noWrap component="div" color={"#000"} sx={{ ml: { xs: `${drawerWidth < 100 ? 10 : 0}px` }}}>
             {displayName}
           </Typography>
 

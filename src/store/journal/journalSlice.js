@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const journalSlice = createSlice({
   name: "journal",
-  drawerWidth: 280,
   initialState: {
+    drawerWidth: 240,
     isSaving: false,
     messageSaved: "",
     notes: [],
@@ -61,6 +61,9 @@ export const journalSlice = createSlice({
       state.messageSaved = '';
       state.active = null,
       state.notes = []
+    },
+    changeMenu: (state, action) => {
+      state.drawerWidth = action.payload;
     }
   },
 });
@@ -69,6 +72,7 @@ export const journalSlice = createSlice({
 export const {
   addNewEmptyNote,
   clearNoteLogOut,
+  changeMenu,
   deleteNoteById,
   noteUpdated,
   savingNewNote,

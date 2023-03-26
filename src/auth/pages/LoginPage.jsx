@@ -54,7 +54,9 @@ export const LoginPage = () => {
   };
 
   const onGoogleSignIn = () => {
-    dispatch(startGoogleSignIn());
+    
+    toast.info("This option has been presenting troubles, it's not available at this moment!");
+    // dispatch(startGoogleSignIn());
   };
   const imgPath = "/assets/login.svg";
 

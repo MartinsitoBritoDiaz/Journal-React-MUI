@@ -33,7 +33,8 @@ export const HomePage = () => {
           ':hover': { opacity: 0.8 },
           position: 'fixed',
           right: 25,
-          bottom: 50
+          bottom: 50,
+          backgroundColor: 'rgba(157,202,157,.4)'
         }}
         onClick={onCreateNewNote}
         >

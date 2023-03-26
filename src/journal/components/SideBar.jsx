@@ -14,20 +14,29 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SideBarItem } from "./";
+import { changeSideBarMenu } from "../../store/journal";
 
-export const SideBar = ({ drawerWidth = 240 }) => {
-  const { notes } = useSelector((state) => state.journal);
-  const [closeMenu, setCloseMenu] = useState(true);
+export const SideBar = () => {
+  const dispatch = useDispatch();
+  const { notes, drawerWidth } = useSelector((state) => state.journal);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
-    console.log(closeMenu)
-  
-  }, [closeMenu])
+    if(drawerWidth > 100){
+      setIsOpen(true);
+    }else{
+      setIsOpen(false);
+    }
+  }, [drawerWidth])
 
   const onChangeMenu = () => {
-    setCloseMenu(false);
+    if(drawerWidth > 100){
+      dispatch( changeSideBarMenu(60) );
+    }else{
+      dispatch( changeSideBarMenu(240) );
+    }
   }
   
   return (
@@ -62,10 +71,11 @@ export const SideBar = ({ drawerWidth = 240 }) => {
             JournalApp
           </Typography>
 
-          <Button
+          <Box
             sx={{
               p: 0,
               m: 0,
+              cursor: 'pointer'
             }}
             onClick={onChangeMenu}
           >
@@ -75,7 +85,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
               alt={"note icon"}
               loading="lazy"
             />
-          </Button>
+          </Box>
         </Toolbar>
         <List
           sx={{
@@ -89,7 +99,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
           }}
         >
           {notes.map((note) => (
-            <SideBarItem key={note.id} {...note} />
+            <SideBarItem key={note.id} {...note} isOpen={isOpen} />
           ))}
         </List>
       </Drawer>

@@ -2,9 +2,15 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
+import { useMediaQuery, useTheme } from '@material-ui/core';
+
 export const ImageGallery = ({ images }) => {
+  
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'));
+
   return (
-    <ImageList sx={{ width: '100%', height: 500 }} cols={4} rowHeight={'auto'}>
+    <ImageList sx={{ width: '100%', height: 500 }} cols={isMd ? 4 : 1} rowHeight={'auto'}>
       {images.map((image) => (
         <ImageListItem key={image}>
           <img
