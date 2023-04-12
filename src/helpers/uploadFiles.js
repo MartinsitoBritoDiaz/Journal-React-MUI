@@ -2,7 +2,8 @@
 export const uploadFiles = async ( file ) => {
     const CLOUDINARY_API = 'https://api.cloudinary.com/v1_1/daxm4jdpf/upload';
 
-    if( !file ) throw new Error('There is not file to be uploaded');
+    // if( !file ) throw new Error('There is not file to be uploaded');
+    if( !file ) return null;
 
     const formData= new FormData();
     formData.append('upload_preset','react-journal');
@@ -21,7 +22,8 @@ export const uploadFiles = async ( file ) => {
         return cloudResp.secure_url;
         
     } catch (error) {
-        console.log(error);
-        throw new Error('There is a problem while uploading files')  
+        // console.log(error);
+        // throw new Error('There is a problem while uploading files')  
+        return null;
     }
 }
