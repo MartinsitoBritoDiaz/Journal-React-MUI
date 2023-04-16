@@ -17,27 +17,27 @@ import { getEnvironments } from "../helpers/getEnvironments";
 // Your web app's Firebase configuration
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const env = getEnvironments();
-
-console.log(env);
+const {
+  VITE_APIKEY,
+  VITE_AUTHDOMAIN,
+  VITE_PROJECTID,
+  VITE_STORAGEBUCKET,
+  VITE_MESSAGINGSENDERID,
+  VITE_APPID,
+  VITE_MEASUREMENTID,
+} = getEnvironments();
 
 const firebaseConfig = {
-
-  apiKey: "AIzaSyChMrrR_EpUJt1Dwehmc23AIyAZN2HTZNY",
-
-  authDomain: "react-courses-2acab.firebaseapp.com",
-
-  projectId: "react-courses-2acab",
-
-  storageBucket: "react-courses-2acab.appspot.com",
-
-  messagingSenderId: "164510163627",
-
-  appId: "1:164510163627:web:750ad8499c4a7a74d7cdee",
-
-  measurementId: "G-XWLM1SE47C"
+  apiKey: VITE_APIKEY,
+  authDomain: VITE_AUTHDOMAIN,
+  projectId: VITE_PROJECTID,
+  storageBucket: VITE_STORAGEBUCKET,
+  messagingSenderId: VITE_MESSAGINGSENDERID,
+  appId: VITE_APPID,
+  measurementId: VITE_MEASUREMENTID,
 
 };
+
 
 
 // Initialize Firebase

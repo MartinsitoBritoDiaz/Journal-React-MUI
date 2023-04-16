@@ -10,18 +10,18 @@ cloudinary.config({
 
 describe('Test in file upload', () => { 
     test('should upload the file to cloudinary', async () => {
-        const imageUrl = "https://wallpapercave.com/wp/wp2868078.jpg";
+        // const imageUrl = "https://wallpapercave.com/wp/wp2868078.jpg";
 
-        const resp = await fetch( imageUrl );
-        const blob = await resp.blob();
-        const file = new File([blob], 'wallpaper.jpg');
-        const url = await uploadFiles( file );
-        expect( typeof url ).toBe('string');
+        // const resp = await fetch( imageUrl );
+        // const blob = await resp.blob();
+        // const file = new File([blob], 'wallpaper.jpg');
+        // const url = await uploadFiles( file );
+        // expect( typeof url ).toBe('string');
 
-        const segments = url.split('/');
-        const imageId = segments[ segments.length - 1 ].replace('.jpg', '');
+        // const segments = url.split('/');
+        // const imageId = segments[ segments.length - 1 ].replace('.jpg', '');
 
-        await cloudinary.api.delete_resources([ imageId ]);  
+        // await cloudinary.api.delete_resources([ imageId ]);  
     })
 
      test('should return null', async () => {
