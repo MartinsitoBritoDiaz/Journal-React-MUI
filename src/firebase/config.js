@@ -7,6 +7,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 
 import { getFirestore } from "firebase/firestore/lite";
+import { getEnvironments } from "../helpers/getEnvironments";
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -16,6 +17,9 @@ import { getFirestore } from "firebase/firestore/lite";
 // Your web app's Firebase configuration
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const env = getEnvironments();
+
+console.log(env);
 
 const firebaseConfig = {
 
